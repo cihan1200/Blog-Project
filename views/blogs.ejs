@@ -1,0 +1,52 @@
+<%- include("partials/header.ejs") %>
+
+<div id="blogs" class="container justify-content-center">
+
+</div>
+
+<% if (locals.blogData && locals.blogData.rows && locals.blogData.rows.length > 0) { %>
+    <% blogData.rows.forEach(row => { %>
+        <div class="col-md-6 rounded text-light bg-secondary blog-schema" style="margin-bottom: 30px;" id="<%= row.id %>">
+            <div class="px-3 py-3">
+                <h1 class="display-4 fst-italic text-secondary-emphasis" style="font-family: 'Times New Roman', Times, serif;"><%= row.title %></h1>
+                <p class="lead my-3 text-secondary-emphasis"><%= row.blog.substring(0, 150) %>...</p>
+                <p class="lead my-3 text-secondary-emphasis">By <%= row.name %></p>
+                <p class="lead mb-0"><a href="/view-post?id=<%= row.id %>" class="fw-bold text-secondary-emphasis">Continue reading...</a></p>
+            </div>
+        </div>
+    <% }); %>
+<% } else { %>
+    <div class="container justify-content-center">
+        <p class="lead mb-4">There is no blog posted yet.</p>
+    </div>
+<% } %>
+ 
+<%- include("partials/footer.ejs") %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const blogsContainer = document.getElementById('blogs');
+        const blogSchemas = document.querySelectorAll('.blog-schema');
+
+        if (blogsContainer && blogSchemas.length > 0) {
+            blogSchemas.forEach(blogSchema => {
+                blogsContainer.appendChild(blogSchema);
+            });
+        }
+    });
+
+    function checkContentHeight() {
+        var bodyHeight = document.body.clientHeight;
+        var viewportHeight = window.innerHeight;
+
+        if (bodyHeight < viewportHeight) {
+            var element = document.getElementById('footer');
+            if (element) {
+                element.classList.add('fixed-bottom');
+            }
+        }
+    }
+    window.onload = checkContentHeight; // Call the function when the page loads
+    window.onresize = checkContentHeight; // Call the function when the window resizes
+</script>
+

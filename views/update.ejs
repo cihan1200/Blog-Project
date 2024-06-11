@@ -1,0 +1,66 @@
+<%- include("partials/header.ejs") %>
+
+<% if (locals.data) { %>
+    <div class="container justify-content-center">
+        <form class="row g-3" action="/save?id=<%= data.rows[0].id %>" method="POST" novalidate id="needsValidation">
+          <div class="col-md-6">
+            <label for="name" class="form-label" style="color: #dee2e6;">Title</label>
+            <input type="text" class="form-control" id="title" name="title" style="background-color: #212529; border: solid 1px #495057; color: #dee2e6;" value= "<%= data.rows[0].title %>" required>
+            <div class="invalid-feedback">Please provide a title.</div>
+          </div>
+          <div class="col-md-6">
+            <label for="inputPassword4" class="form-label" style="color: #dee2e6;">Name</label>
+            <input type="text" class="form-control" id="name" name="name" style="background-color: #212529; border: solid 1px #495057; color: #dee2e6;" value= "<%= data.rows[0].name %>" required>
+            <div class="invalid-feedback">Please provide a name.</div>
+          </div>
+          <div>
+            <label for="floatingTextarea" class="py-2">Your Blog</label>
+            <textarea class="form-control" id="floatingTextarea" name="blog" style="height: 238px; resize: none; background-color: #212529; border: solid 1px #495057; color: #dee2e6;" required><%= data.rows[0].blog %></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary" id="save">Save</button>
+          </div>
+        </form>
+      </div>
+<% } %>
+
+<%- include("partials/footer.ejs") %>
+
+<script>
+
+    function checkContentHeight() {
+        var bodyHeight = document.body.clientHeight;
+        var viewportHeight = window.innerHeight;
+
+        if (bodyHeight < viewportHeight) {
+            var element = document.getElementById('footer');
+            if (element) {
+                element.classList.add('fixed-bottom');
+            }
+        }
+    }
+    window.onload = checkContentHeight; // Call the function when the page loads
+    window.onresize = checkContentHeight; // Call the function when the window resizes
+
+    // Get the form element
+    var form = document.getElementById("needsValidation");
+    // Add event listener for form submission
+    form.addEventListener('submit', function(event) {
+      // Check if the form is valid
+      if (!form.checkValidity()) {
+        // If the form is invalid, prevent the default form submission
+        event.preventDefault();
+        event.stopPropagation();
+      } else {
+        // If the form is valid, store the form data in local storage
+        var formData = {
+          title: document.getElementById('title').value,
+          name: document.getElementById('name').value,
+          blog: document.getElementById('blog').value
+        };
+      }
+      // Add a class to mark the form as submitted, triggering the validation styles
+      form.classList.add('was-validated');
+    });
+
+</script>

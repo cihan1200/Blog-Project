@@ -1,0 +1,46 @@
+<%- include("partials/header.ejs") %>
+
+<% if (locals.data) { %>
+    <div id="blogs" class="container justify-content-center">
+        <div class="col-md-12 rounded text-light bg-secondary blog-schema" style="margin-bottom: 30px;" id="<%= data.rows[0].id %>">
+            <div class="px-3 py-3">
+                <h1 class="display-4 fst-italic text-secondary-emphasis" style="font-family: 'Times New Roman', Times, serif;"><%= data.rows[0].title %></h1>
+                <p class="lead my-3 text-secondary-emphasis"><%= data.rows[0].blog %></p>
+                <p class="lead my-3 text-secondary-emphasis fw-bold">By <%= data.rows[0].name %></p>
+            </div>
+        </div>
+        <div class="d-grid gap-3 col-1">
+            <button class="btn btn-outline-primary" type="button" id="edit">Edit</button>
+            <button class="btn btn-outline-danger" type="button" id="delete">Delete</button>
+        </div>
+    </div>
+<% } %>
+
+<%- include("partials/footer.ejs") %>
+
+<script>
+    function checkContentHeight() {
+        var bodyHeight = document.body.clientHeight;
+        var viewportHeight = window.innerHeight;
+
+        if (bodyHeight < viewportHeight) {
+            var element = document.getElementById('footer');
+            if (element) {
+                element.classList.add('fixed-bottom');
+            }
+        }
+    }
+    window.onload = checkContentHeight; // Call the function when the page loads
+    window.onresize = checkContentHeight; // Call the function when the window resizes
+
+    const editButton = document.getElementById("edit");
+    const deleteButton = document.getElementById("delete");
+    
+    editButton.addEventListener('click', function() {
+        window.location.href = '/update?id=<%= data.rows[0].id %>';
+    });
+
+    deleteButton.addEventListener('click', function() {
+        window.location.href = '/delete?id=<%= data.rows[0].id %>';
+    });
+</script>

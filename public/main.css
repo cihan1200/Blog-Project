@@ -1,0 +1,7 @@
+.border-bottom {
+    border-bottom: var(--bs-border-width) var(--bs-border-style) #495057 !important;
+}
+
+body {
+    background-color: white;
+}

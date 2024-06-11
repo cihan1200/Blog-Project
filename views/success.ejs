@@ -1,0 +1,25 @@
+<%- include("partials/header.ejs") %>
+
+    <div class="container justify-content-center">
+        <h1>Your blog successfully posted!</h1>
+        <a href="/blogs"><button type="button" class="btn btn-primary btn-md px-3 gap-3 mt-5">Post Viewing</button></a>
+        <a href="/new-blog"><button type="button" class="btn btn-outline-secondary btn-md px-3 mt-5">Post Creation</button></a>
+    </div>
+
+<%- include("partials/footer.ejs") %>
+
+<script>
+    function checkContentHeight() {
+        var bodyHeight = document.body.clientHeight;
+        var viewportHeight = window.innerHeight;
+
+        if (bodyHeight < viewportHeight) {
+            var element = document.getElementById('footer');
+            if (element) {
+                element.classList.add('fixed-bottom');
+            }
+        }
+    }
+    window.onload = checkContentHeight; // Call the function when the page loads
+    window.onresize = checkContentHeight; // Call the function when the window resizes
+</script>

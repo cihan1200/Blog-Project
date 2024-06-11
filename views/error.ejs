@@ -1,0 +1,23 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container justify-content-center">
+    <p class="lead mb-4">There was an error.</p>
+</div>
+
+<%- include("partials/footer.ejs") %>
+
+<script>
+    function checkContentHeight() {
+        var bodyHeight = document.body.clientHeight;
+        var viewportHeight = window.innerHeight;
+
+        if (bodyHeight < viewportHeight) {
+            var element = document.getElementById('footer');
+            if (element) {
+                element.classList.add('fixed-bottom');
+            }
+        }
+    }
+    window.onload = checkContentHeight; // Call the function when the page loads
+    window.onresize = checkContentHeight; // Call the function when the window resizes
+</script>
